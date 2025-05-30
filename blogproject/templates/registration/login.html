@@ -1,0 +1,85 @@
+{% extends 'index.html' %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-header bg-primary text-white text-center py-4">
+                    <h3 class="mb-0">Welcome Back</h3>
+                    <p class="mb-0">Please login to your account</p>
+                </div>
+                <div class="card-body p-4">
+                    {% if form.errors %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        Your username and password didn't match. Please try again.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endif %}
+
+                    {% if next %}
+                        {% if user.is_authenticated %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <i class="bi bi-shield-exclamation me-2"></i>
+                            Your account doesn't have access to this page. To proceed,
+                            please login with an account that has access.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% else %}
+                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                            <i class="bi bi-info-circle me-2"></i>
+                            Please login to see this page.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endif %}
+                    {% endif %}
+
+                    <form method="post" action="{% url 'login' %}" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        <div class="form-floating mb-3">
+                            <input type="text" name="username" id="id_username" class="form-control" placeholder="Username" required autofocus>
+                            <label for="id_username">Username</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="password" name="password" id="id_password" class="form-control" placeholder="Password" required>
+                            <label for="id_password">Password</label>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                            </button>
+                        </div>
+                        <input type="hidden" name="next" value="{{ next }}">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-floating > .form-control:focus ~ label,
+    .form-floating > .form-control:not(:placeholder-shown) ~ label {
+        color: #0d6efd;
+    }
+    .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+    .card {
+        transition: transform 0.2s ease-in-out;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    .btn-primary {
+        transition: all 0.2s ease-in-out;
+    }
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+</style>
+{% endblock %} 

@@ -1,51 +1,273 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Blog Project{% endblock %}</title>
+    <title>{% block title %}VCN Blogs{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --background-color: #ecf0f1;
+            --card-bg: #ffffff;
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+            --header-bg: #2c3e50;
+            --footer-bg: #34495e;
+            --card-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            --hover-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
         body {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            background-color: #f8f9fa;
+            background-color: var(--background-color);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: var(--text-primary);
         }
+
         .main-content {
             flex: 1;
             padding: 2rem 0;
         }
-        .card {
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: var(--header-bg) !important;
+            box-shadow: var(--card-shadow);
         }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white !important;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+            color: white !important;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        /* Card Styling */
+        .card {
+            border: none;
+            border-radius: 10px;
+            background-color: var(--card-bg);
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            overflow: hidden;
+        }
+
         .card:hover {
             transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
         }
-        .blog-content {
-            font-size: 1.1rem;
-            line-height: 1.8;
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
         }
-        .avatar-placeholder {
+
+        .card-title {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-text {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Button Styling */
+        .btn {
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            border-radius: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.2);
+        }
+
+        /* Form Controls */
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #bdc3c7;
+            padding: 0.75rem 1rem;
+            background-color: var(--card-bg);
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: var(--footer-bg);
+            padding: 2rem 0;
+            margin-top: auto;
+            color: white;
+        }
+
+        footer h5 {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        footer .text-muted {
+            color: rgba(255, 255, 255, 0.7) !important;
+        }
+
+        footer a {
+            color: rgba(255, 255, 255, 0.7) !important;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover {
+            color: white !important;
+        }
+
+        /* Category Badges */
+        .badge {
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            border-radius: 20px;
+            background-color: var(--accent-color);
+        }
+
+        /* Avatar Styling */
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+        }
+
+        .avatar-large {
             width: 100px;
             height: 100px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        }
+
+        /* Alert Styling */
+        .alert {
+            border: none;
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+        }
+
+        /* Dropdown Styling */
+        .dropdown-menu {
+            border: none;
+            background-color: var(--card-bg);
+            box-shadow: var(--hover-shadow);
+            border-radius: 10px;
+        }
+
+        .dropdown-item {
+            padding: 0.75rem 1.5rem;
+            transition: all 0.2s ease;
+            color: var(--text-primary);
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--background-color);
+            transform: translateX(5px);
+        }
+
+        /* Pagination Styling */
+        .pagination {
+            margin-top: 2rem;
+        }
+
+        .page-link {
+            border: none;
+            color: var(--accent-color);
+            padding: 0.75rem 1rem;
+            margin: 0 0.25rem;
+            border-radius: 5px;
+        }
+
+        .page-link:hover {
+            background-color: var(--background-color);
+            transform: translateY(-2px);
+        }
+
+        .page-item.active .page-link {
+            background-color: var(--accent-color);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-color);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-color);
         }
     </style>
 </head>
 <body>
     {% include 'shared/navbar.html' %}
+
     <main class="main-content">
         <div class="container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- Hero Section -->
+            <div class="text-center py-5 mb-4">
+                <h1 class="display-4 fw-bold mb-3">VCN Blogs</h1>
+                <p class="lead text-muted">Optimize your blogspot</p>
+            </div>
+            
             {% block content %}
             {% endblock %}
         </div>
     </main>
+
     {% include 'shared/footer.html' %}
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html> 

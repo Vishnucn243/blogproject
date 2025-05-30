@@ -1,0 +1,102 @@
+{% extends 'index.html' %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-body p-5">
+                    <h1 class="text-center mb-4">Contact Us</h1>
+                    <p class="text-center text-muted mb-5">
+                        Get in touch with us through any of these channels
+                    </p>
+
+                    <!-- Contact Information -->
+                    <div class="row g-4 mb-5">
+                        <div class="col-md-6">
+                            <div class="text-center p-4 bg-light rounded h-100">
+                                <i class="bi bi-envelope fs-1 text-primary mb-3"></i>
+                                <h5>Email Us</h5>
+                                <p class="mb-0">
+                                    <a href="mailto:vishnu@gmail.com" class="text-decoration-none text-muted">
+                                        vishnu@gmail.com
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-center p-4 bg-light rounded h-100">
+                                <i class="bi bi-telephone fs-1 text-primary mb-3"></i>
+                                <h5>Call Us</h5>
+                                <p class="mb-0">
+                                    <a href="tel:+91 9999999999" class="text-decoration-none text-muted">
+                                        +91 9999999999
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Media Links -->
+                    <div class="text-center">
+                        <h4 class="mb-4">Follow Us</h4>
+                        <div class="d-flex justify-content-center gap-4">
+                            <a href="https://facebook.com" target="_blank" class="text-decoration-none">
+                                <div class="p-3 bg-light rounded-circle">
+                                    <i class="bi bi-facebook fs-3 text-primary"></i>
+                                </div>
+                            </a>
+                            <a href="https://twitter.com" target="_blank" class="text-decoration-none">
+                                <div class="p-3 bg-light rounded-circle">
+                                    <i class="bi bi-twitter fs-3 text-primary"></i>
+                                </div>
+                            </a>
+                            <a href="https://instagram.com" target="_blank" class="text-decoration-none">
+                                <div class="p-3 bg-light rounded-circle">
+                                    <i class="bi bi-instagram fs-3 text-primary"></i>
+                                </div>
+                            </a>
+                            <a href="https://linkedin.com" target="_blank" class="text-decoration-none">
+                                <div class="p-3 bg-light rounded-circle">
+                                    <i class="bi bi-linkedin fs-3 text-primary"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Working Hours -->
+                    <div class="text-center mt-5">
+                        <h4 class="mb-3">Working Hours</h4>
+                        <p class="text-muted mb-0">Monday - Saturday: 9:00 AM - 6:00 PM</p>
+                        <p class="text-muted">Sunday: Closed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.bg-light {
+    transition: all 0.3s ease;
+}
+
+.bg-light:hover {
+    background-color: var(--accent-color) !important;
+}
+
+.bg-light:hover i {
+    color: white !important;
+}
+
+.rounded-circle {
+    transition: transform 0.3s ease;
+}
+
+.rounded-circle:hover {
+    transform: translateY(-5px);
+}
+</style>
+{% endblock %} 

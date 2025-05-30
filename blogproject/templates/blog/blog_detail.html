@@ -1,32 +1,144 @@
 {% extends 'index.html' %}
 {% block title %}{{ blog.title }}{% endblock %}
+
 {% block content %}
-<article class="blog-post">
-    <div class="card border-0">
-        <div class="card-body p-4">
-            <h1 class="display-4 mb-3">{{ blog.title }}</h1>
-            <div class="d-flex align-items-center text-muted mb-4">
-                <div class="me-3">
-                    <i class="bi bi-person-circle"></i> {{ blog.author.username }}
-                </div>
-                <div class="me-3">
-                    <i class="bi bi-calendar"></i> {{ blog.created_at|date:"F j, Y" }}
-                </div>
-                {% if blog.updated_at != blog.created_at %}
-                <div>
-                    <i class="bi bi-pencil"></i> Updated:{{ blog.updated_at|date:"F j, Y" }}
-                </div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'blog:blog_list' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'blog:category_blogs' blog.category.slug %}">{{ blog.category.name }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ blog.title }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Blog Post -->
+            <article class="card shadow-sm mb-4">
+                {% if blog.featured_image %}
+                    <img src="{{ blog.featured_image.url }}" class="card-img-top" alt="{{ blog.title }}">
                 {% endif %}
+                <div class="card-body">
+                    <h1 class="card-title mb-3">{{ blog.title }}</h1>
+                    <div class="d-flex align-items-center mb-4">
+                        {% if blog.author.profile.avatar %}
+                            <img src="{{ blog.author.profile.avatar.url }}" alt="{{ blog.author.username }}" class="avatar me-3">
+                        {% else %}
+                            <i class="bi bi-person-circle fs-4 me-3"></i>
+                        {% endif %}
+                        <div>
+                            <h6 class="mb-1">{{ blog.author.username }}</h6>
+                            <small class="text-muted">
+                                <i class="bi bi-calendar"></i> {{ blog.created_at|date:"F j, Y" }}
+                            </small>
+                        </div>
+                    </div>
+                    <div class="card-text">
+                        {{ blog.content|safe }}
+                    </div>
+                </div>
+            </article>
+
+            <!-- Comments Section -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">Comments ({{ comments.count }})</h3>
+
+                    {% if user.is_authenticated %}
+                        <!-- Comment Form -->
+                        <form method="post" class="mb-4">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                {{ form.content }}
+                                {% if form.content.errors %}
+                                    <div class="text-danger mt-1">
+                                        {{ form.content.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-send me-1"></i>Post Comment
+                            </button>
+                        </form>
+                    {% else %}
+                        <div class="alert alert-info">
+                            Please <a href="{% url 'login' %}" class="alert-link">login</a> to leave a comment.
+                        </div>
+                    {% endif %}
+
+                    <!-- Comments List -->
+                    {% if comments %}
+                        {% for comment in comments %}
+                            <div class="comment mb-4">
+                                <div class="d-flex align-items-center mb-2">
+                                    {% if comment.author.profile.avatar %}
+                                        <img src="{{ comment.author.profile.avatar.url }}" alt="{{ comment.author.username }}" class="avatar me-3">
+                                    {% else %}
+                                        <i class="bi bi-person-circle fs-4 me-3"></i>
+                                    {% endif %}
+                                    <div>
+                                        <h6 class="mb-1">{{ comment.author.username }}</h6>
+                                        <small class="text-muted">
+                                            <i class="bi bi-clock"></i> {{ comment.created_at|date:"F j, Y" }}
+                                        </small>
+                                    </div>
+                                </div>
+                                <p class="mb-0">{{ comment.content }}</p>
+                            </div>
+                            {% if not forloop.last %}
+                                <hr>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <div class="alert alert-info">
+                            No comments yet. Be the first to comment!
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-            <div class="blog-content">
-                {{ blog.content|linebreaks }}
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">About the Author</h5>
+                    <div class="d-flex align-items-center mb-3">
+                        {% if blog.author.profile.avatar %}
+                            <img src="{{ blog.author.profile.avatar.url }}" alt="{{ blog.author.username }}" class="avatar me-3">
+                        {% else %}
+                            <i class="bi bi-person-circle fs-4 me-3"></i>
+                        {% endif %}
+                        <div>
+                            <h6 class="mb-1">{{ blog.author.username }}</h6>
+                            <small class="text-muted">Author</small>
+                        </div>
+                    </div>
+                    {% if blog.author.profile.bio %}
+                        <p class="card-text">{{ blog.author.profile.bio }}</p>
+                    {% endif %}
+                </div>
             </div>
-            <div class="mt-4">
-                <a href="{% url 'blog:blog_list' %}" class="btn btn-outline-secondary">
-                    <i class="bi bi-arrow-left"></i> Back to Blog List
-                </a>
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Categories</h5>
+                    <ul class="list-unstyled">
+                        {% for category in categories %}
+                            <li class="mb-2">
+                                <a href="{% url 'blog:category_blogs' category.slug %}" class="text-decoration-none">
+                                    <i class="bi bi-tag me-2"></i>{{ category.name }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-</article>
+</div>
 {% endblock %} 

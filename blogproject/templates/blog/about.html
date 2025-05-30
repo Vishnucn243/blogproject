@@ -1,0 +1,147 @@
+{% extends 'index.html' %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <!-- Hero Section -->
+            <div class="text-center mb-5">
+                <h1 class="display-4 mb-3">Welcome to Our Blog Platform</h1>
+                <p class="lead text-muted">A community-driven space for sharing knowledge, stories, and ideas</p>
+            </div>
+
+            <!-- Main Content -->
+            <div class="card shadow-sm mb-5">
+                <div class="card-body p-5">
+                    <div class="row g-4">
+                        <!-- Our Story Section -->
+                        <div class="col-12">
+                            <h2 class="mb-4">Our Story</h2>
+                            <p class="text-muted">
+                                Founded with a passion for knowledge sharing and community building, our blog platform has grown into a vibrant space where writers, thinkers, and enthusiasts come together. We believe in the power of sharing ideas and experiences to create meaningful connections and foster learning.
+                            </p>
+                        </div>
+
+                        <!-- What We Offer Section -->
+                        <div class="col-12">
+                            <h2 class="mb-4">What We Offer</h2>
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-start mb-4">
+                                        <i class="bi bi-pencil-square fs-2 text-primary me-3"></i>
+                                        <div>
+                                            <h5>Content Creation</h5>
+                                            <p class="text-muted mb-0">Create and share your stories, insights, and expertise with our easy-to-use blogging tools.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-start mb-4">
+                                        <i class="bi bi-people fs-2 text-primary me-3"></i>
+                                        <div>
+                                            <h5>Community Engagement</h5>
+                                            <p class="text-muted mb-0">Connect with like-minded individuals through comments, discussions, and shared interests.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-start mb-4">
+                                        <i class="bi bi-grid fs-2 text-primary me-3"></i>
+                                        <div>
+                                            <h5>Category Organization</h5>
+                                            <p class="text-muted mb-0">Browse content by categories to find exactly what interests you.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-start mb-4">
+                                        <i class="bi bi-shield-check fs-2 text-primary me-3"></i>
+                                        <div>
+                                            <h5>Quality Content</h5>
+                                            <p class="text-muted mb-0">We maintain high standards for content quality and user experience.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Our Values Section -->
+                        <div class="col-12">
+                            <h2 class="mb-4">Our Values</h2>
+                            <div class="row g-4">
+                                <div class="col-md-4">
+                                    <div class="text-center p-4 bg-light rounded">
+                                        <i class="bi bi-heart fs-1 text-primary mb-3"></i>
+                                        <h5>Community First</h5>
+                                        <p class="text-muted mb-0">We prioritize building a supportive and inclusive community.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="text-center p-4 bg-light rounded">
+                                        <i class="bi bi-lightbulb fs-1 text-primary mb-3"></i>
+                                        <h5>Knowledge Sharing</h5>
+                                        <p class="text-muted mb-0">We believe in the power of sharing knowledge and experiences.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="text-center p-4 bg-light rounded">
+                                        <i class="bi bi-star fs-1 text-primary mb-3"></i>
+                                        <h5>Quality Content</h5>
+                                        <p class="text-muted mb-0">We maintain high standards for all content on our platform.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Join Us Section -->
+                        <div class="col-12 text-center mt-5">
+                            <h2 class="mb-4">Join Our Community</h2>
+                            <p class="text-muted mb-4">
+                                Whether you're a writer, reader, or enthusiast, there's a place for you in our community. Start sharing your stories, engaging with others, and being part of something meaningful.
+                            </p>
+                            <div class="d-flex justify-content-center gap-3">
+                                <a href="{% url 'blog:blog_create' %}" class="btn btn-primary">
+                                    <i class="bi bi-pencil-square me-2"></i>Start Writing
+                                </a>
+                                <a href="{% url 'blog:blog_list' %}" class="btn btn-outline-primary">
+                                    <i class="bi bi-book me-2"></i>Explore Posts
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section -->
+            <div class="row g-4 mb-5">
+                <div class="col-md-3">
+                    <div class="text-center p-4 bg-primary text-white rounded">
+                        <h3 class="mb-0">990+</h3>
+                        <p class="mb-0">Active Writers</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-center p-4 bg-primary text-white rounded">
+                        <h3 class="mb-0">450+</h3>
+                        <p class="mb-0">Blog Posts</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-center p-4 bg-primary text-white rounded">
+                        <h3 class="mb-0">25+</h3>
+                        <p class="mb-0">Categories</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-center p-4 bg-primary text-white rounded">
+                        <h3 class="mb-0">8k+</h3>
+                        <p class="mb-0">Monthly Readers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
